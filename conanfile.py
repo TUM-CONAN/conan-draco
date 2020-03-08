@@ -23,19 +23,20 @@ class DracoConan(ConanFile):
         "url": "https://github.com/google/draco.git",
         "revision": "%s" % version,
     }
-    
-    def build(self):
+
+    def _cmake_configure(self):
         cmake = CMake(self)
         cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
         cmake.configure()
+        return cmake
+    
+    def build(self):
+        cmake = self._cmake_configure()
         cmake.build()
 
     def package(self):
-        self.copy(pattern="*.h", dst="include", src="src", excludes=("draco/unity","draco/maya"))
-        self.copy(pattern="*.h", dst="include/draco", src="draco")
-        self.copy(pattern="*.so*", dst="lib", keep_path=False, excludes=("unity","maya") )
-        self.copy(pattern="*.lib", dst="lib", keep_path=False)
-        self.copy(pattern="*.dll", dst="bin", keep_path=False)
+        cmake = self._cmake_configure()
+        cmake.install()
         
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
