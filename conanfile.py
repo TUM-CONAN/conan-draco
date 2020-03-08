@@ -4,7 +4,7 @@ import os
 
 class DracoConan(ConanFile):
     name = "draco"
-    version = "1.3.5"
+    version = "1.3.6"
     generators = "cmake"
     settings = {"os": None, "arch": ["x86_64", "x86"], "compiler": None, "build_type": None}
 
@@ -19,6 +19,7 @@ class DracoConan(ConanFile):
 
     scm = {
         "type": "git",
+        "subfolder": "sources",
         "url": "https://github.com/google/draco.git",
         "revision": "%s" % version,
     }
