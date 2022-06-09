@@ -4,7 +4,7 @@ import os
 
 class DracoConan(ConanFile):
     name = "draco"
-    version = "1.4.1"
+    version = "1.5.2"
     generators = "cmake"
     settings = {"os": None, "arch": ["x86_64", "x86"], "compiler": None, "build_type": None}
 
